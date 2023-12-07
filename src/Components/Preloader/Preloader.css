@@ -1,0 +1,48 @@
+:root {
+    --row-gap: 3rem;
+    --preloader-img-size: 36rem;
+    --preloader-fontSize: 3.6rem;
+}
+
+.preloader {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: var(--row-gap);
+}
+
+.preloader img {
+    width: var(--preloader-img-size);
+    height: var(--preloader-img-size);
+}
+
+.preloader span {
+    font: inherit;
+    font-size: var(--preloader-fontSize);
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: 600;
+}
+@media only screen and (max-width: 1200px){
+    /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width: 600px){
+	/*Big smartphones [426px -> 600px]*/
+    :root {
+        --row-gap: 3rem;
+        --preloader-img-size: 28rem;
+        --preloader-fontSize: 2.8rem;
+    }
+}
+@media only screen and (max-width: 425px){
+    :root {
+        --row-gap: 3rem;
+        --preloader-img-size: 20rem;
+        --preloader-fontSize: 2rem;
+    }
+}

@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react'
 import './App.css';
+import Preloader from './Components/Preloader/Preloader';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface AppProps {
+
+}
+interface AppState {
+  currently_active: any,
 }
 
-export default App;
+export default class App extends Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props)
+  
+    this.state = {
+      currently_active: <Preloader></Preloader>
+    }
+  }
+  render() {
+    return (
+      <div className='App'>
+        {this.state.currently_active}
+      </div>
+    )
+  }
+}
