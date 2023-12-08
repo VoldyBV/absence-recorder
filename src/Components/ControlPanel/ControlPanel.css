@@ -1,0 +1,58 @@
+:root {
+    --control-panel-rowGap: 5rem;
+    --control-panel-fontSize: 4.8rem;
+    --control-panel-button-paddingTopBottom: 2rem;
+    --control-panel-button-letterSpacing: 0.5rem;
+    --control-button-borderRadius: calc(var(--control-panel-button-paddingTopBottom) * 2 + var(--control-panel-fontSize));
+}
+.control-panel {
+    font: inherit;
+
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: var(--control-panel-rowGap);
+
+    font-size: var(--control-panel-fontSize);
+    font-weight: 600;
+}
+
+.control-panel button {
+    font: inherit;
+    width: 90%;
+    text-transform: uppercase;
+    letter-spacing: var(--control-panel-button-letterSpacing);
+    padding: var(--control-panel-button-paddingTopBottom) 0;
+    border-radius: var(--control-button-borderRadius);
+    background-color: var(--red);
+    border: solid 3px var(--red);
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.control-panel button:hover {
+    background-color: var(--light-red);
+}
+@media only screen and (max-width: 1200px){
+    /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width: 600px){
+	/*Big smartphones [426px -> 600px]*/
+    :root {
+        --control-panel-rowGap: 3rem;
+        --control-panel-fontSize: 3.6rem;
+        --control-panel-button-paddingTopBottom: 2rem;
+        --control-panel-button-letterSpacing: 0.1rem;
+    }
+}
+@media only screen and (max-width: 425px){
+    :root {
+        --control-panel-rowGap: 3rem;
+        --control-panel-fontSize: 2.4rem;
+        --control-panel-button-paddingTopBottom: 2rem;
+    }
+}

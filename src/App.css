@@ -1,6 +1,7 @@
 :root {
   font-size: 10px;
-  --red: #ec3237;
+  --red: #e9161d;
+  --light-red: hsl(358, 83%, 53%);
   --blue: #1565ae;
   --white: #fefefe;
 }
