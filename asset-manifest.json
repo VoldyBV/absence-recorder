@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/absence-recorder/static/css/main.dd3aae1c.css",
-    "main.js": "/absence-recorder/static/js/main.659cf654.js",
+    "main.js": "/absence-recorder/static/js/main.a8d001f7.js",
     "static/js/787.042de63e.chunk.js": "/absence-recorder/static/js/787.042de63e.chunk.js",
     "index.html": "/absence-recorder/index.html",
     "static/media/animation.svg": "/absence-recorder/static/media/animation.75ee7d8829a6399f99c19ef37cd4f05f.svg",
     "main.dd3aae1c.css.map": "/absence-recorder/static/css/main.dd3aae1c.css.map",
-    "main.659cf654.js.map": "/absence-recorder/static/js/main.659cf654.js.map",
+    "main.a8d001f7.js.map": "/absence-recorder/static/js/main.a8d001f7.js.map",
     "787.042de63e.chunk.js.map": "/absence-recorder/static/js/787.042de63e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dd3aae1c.css",
-    "static/js/main.659cf654.js"
+    "static/js/main.a8d001f7.js"
   ]
 }
