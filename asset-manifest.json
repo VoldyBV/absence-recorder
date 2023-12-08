@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/absence-recorder/static/css/main.dd3aae1c.css",
-    "main.js": "/absence-recorder/static/js/main.a8d001f7.js",
+    "main.css": "/absence-recorder/static/css/main.408eb2ea.css",
+    "main.js": "/absence-recorder/static/js/main.80b83ec7.js",
     "static/js/787.042de63e.chunk.js": "/absence-recorder/static/js/787.042de63e.chunk.js",
     "index.html": "/absence-recorder/index.html",
-    "static/media/animation.svg": "/absence-recorder/static/media/animation.75ee7d8829a6399f99c19ef37cd4f05f.svg",
-    "main.dd3aae1c.css.map": "/absence-recorder/static/css/main.dd3aae1c.css.map",
-    "main.a8d001f7.js.map": "/absence-recorder/static/js/main.a8d001f7.js.map",
+    "static/media/animation.svg": "/absence-recorder/static/media/animation.c7aa54f3668c9860c39eec92602eb4f2.svg",
+    "main.408eb2ea.css.map": "/absence-recorder/static/css/main.408eb2ea.css.map",
+    "main.80b83ec7.js.map": "/absence-recorder/static/js/main.80b83ec7.js.map",
     "787.042de63e.chunk.js.map": "/absence-recorder/static/js/787.042de63e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dd3aae1c.css",
-    "static/js/main.a8d001f7.js"
+    "static/css/main.408eb2ea.css",
+    "static/js/main.80b83ec7.js"
   ]
 }
