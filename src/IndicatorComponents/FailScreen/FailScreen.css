@@ -1,0 +1,56 @@
+:root {
+    --row-gap: 3rem;
+    --fail-screen-img-size: 32rem;
+    --fail-screen-fontSize: 3.6rem;
+}
+.fail-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: var(--row-gap);
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 600;
+    background-color: rgba(255, 86, 86, 0.75);
+    color: rgb(85, 0, 0);
+}
+.fail-screen img {
+    width: var(--fail-screen-img-size);
+    height: var(--fail-screen-img-size);
+}
+.fail-screen a {
+    font-size: 2rem;
+    cursor: pointer;
+
+}
+.fail-screen span {
+    font: inherit;
+    font-size: var(--fail-screen-fontSize);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: 600;
+}
+@media only screen and (max-width: 1200px){
+    /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width: 600px){
+	/*Big smartphones [426px -> 600px]*/
+    :root {
+        --row-gap: 3rem;
+        --fail-screen-img-size: 28rem;
+        --fail-screen-fontSize: 2.8rem;
+    }
+}
+@media only screen and (max-width: 425px){
+    :root {
+        --row-gap: 3rem;
+        --fail-screen-img-size: 20rem;
+        --fail-screen-fontSize: 2rem;
+    }
+}

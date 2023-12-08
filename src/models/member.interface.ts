@@ -5,3 +5,6 @@ export default interface IMember {
     grade: string,
     phone: string
 }
+export const isMember = (obj: any): obj is IMember => {
+    return (obj as IMember).full_name !== undefined;
+}

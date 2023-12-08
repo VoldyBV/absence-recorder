@@ -5,6 +5,9 @@ import Preloader from './Components/Preloader/Preloader';
 import IMember from './models/member.interface';
 import IAbsenceRecord from './models/absence_record.interface';
 import ControlPanel from './Components/ControlPanel/ControlPanel';
+import WaitingScreen from './IndicatorComponents/WaitingScreen/WaitingScreen';
+import SuccessScreen from './IndicatorComponents/SuccessScreen/SuccessScreen';
+import FailScreen from './IndicatorComponents/FailScreen/FailScreen';
 
 interface AppProps {
 
@@ -69,6 +72,9 @@ export default class App extends Component<AppProps, AppState> {
     return (
       <div className='App'>
         {this.state.currently_active}
+        <WaitingScreen></WaitingScreen>
+        <SuccessScreen></SuccessScreen>
+        <FailScreen></FailScreen>
       </div>
     )
   }
