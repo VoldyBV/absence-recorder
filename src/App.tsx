@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import './App.css';
 import { app, credentials } from './utilis/mongo.client';
 //interfaces
-import IMember from './models/member.interface';
-import IAbsenceRecord from './models/absence_record.interface';
+import IMember, { isMember } from './models/member.interface';
+import IAbsenceRecord, { isAbsenceRecord } from './models/absence_record.interface';
 //indicators
 import Preloader from './IndicatorComponents/Preloader/Preloader';
 import WaitingScreen from './IndicatorComponents/WaitingScreen/WaitingScreen';
@@ -28,6 +28,7 @@ export default class App extends Component<AppProps, AppState> {
     super(props)
   
     this.switchComponent = this.switchComponent.bind(this);
+    this.saveMembers = this.saveMembers.bind(this)
 
     this.state = {
       members: [],
@@ -47,7 +48,11 @@ export default class App extends Component<AppProps, AppState> {
     preloader_text.innerText = "Loading absence records..."
     var absence_records: IAbsenceRecord[] = await user.functions.GetAllAbsenceRecords();
 
-    preloader_text.innerText = "Finishing up..."
+    preloader_text.innerText = "Finishing up...";
+
+    let waiting_screen = document.querySelector(".waiting-screen")! as HTMLDivElement;
+    let success_screen = document.querySelector(".success-screen")! as HTMLDivElement;
+    let fail_screen = document.querySelector(".fail-screen")! as HTMLDivElement;
 
     setTimeout(() => {
       this.setState({
@@ -66,12 +71,18 @@ export default class App extends Component<AppProps, AppState> {
 
     switch(component_name) {
       case 'members':
-        component = <Member inherited_data={this.state.members} go_back={this.switchComponent}></Member>; break
+        component = <Member user={this.state.user!} saveData={this.saveMembers} inherited_data={this.state.members} go_back={this.switchComponent}></Member>; break
       default: component = <ControlPanel switchComponent={this.switchComponent}></ControlPanel>
     }
 
     this.setState({
       currently_active: component
+    })
+  }
+  // this method saves data to global state
+  saveMembers(new_data: IMember[]){
+    this.setState({
+      members: new_data
     })
   }
   render() {

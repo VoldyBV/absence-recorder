@@ -9,7 +9,9 @@ interface MemberFormProps {
     isOpen: boolean,
     data?: IMember,
     form_name: string,
-    type: 'insert' | 'update' | 'filter'
+    type: 'insert' | 'update' | 'filter',
+    onSubmit: (data: IMember) => Promise<void>,
+    onCancel: () => void
 }
 interface MemberFormState {
     _id?: string,
@@ -26,7 +28,8 @@ export default class MemberForm extends Component<MemberFormProps, MemberFormSta
     this.full_name_onChange =this.full_name_onChange.bind(this);
     this.phone_onChange =this.phone_onChange.bind(this);
     this.grade_onChange =this.grade_onChange.bind(this);
-    this.group_onChange = this.group_onChange.bind(this)
+    this.group_onChange = this.group_onChange.bind(this);
+    this.form_onSubmit = this.form_onSubmit.bind(this);
     
     let data_container: any = !!props.data ? props.data : {};
 
@@ -37,6 +40,32 @@ export default class MemberForm extends Component<MemberFormProps, MemberFormSta
         phone: data_container.phone || '',
         grade: data_container.grade || '',
     }
+  }
+  form_onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    let data: IMember = {
+        full_name: this.state.full_name,
+        group: this.state.group,
+        phone: this.state.phone,
+        grade: this.state.grade,
+    };
+    this.props.onSubmit(data);
+    this.setState({
+        _id: undefined,
+        full_name: '',
+        group: '',
+        phone: '',
+        grade: '',
+    })
+  }
+  form_onCancel() {
+    this.setState({
+        _id: undefined,
+        full_name: '',
+        group: '',
+        phone: '',
+        grade: '',
+    })
   }
   full_name_onChange(e: React.ChangeEvent) {
     let input: HTMLInputElement = e.currentTarget as HTMLInputElement;
@@ -75,7 +104,7 @@ export default class MemberForm extends Component<MemberFormProps, MemberFormSta
   render() {
     return (
       <div className='member-form' style={{display: this.props.isOpen ? 'flex' : 'none'}}>
-        <form>
+        <form onSubmit={this.form_onSubmit}>
             <span className='text-box-label'>{'Full name:'}</span>
             <input 
                 type='text' 
@@ -136,11 +165,11 @@ export default class MemberForm extends Component<MemberFormProps, MemberFormSta
                 </label>
             </div>
             <div className='form-buttons-container'>
-                <button type='button' className='cancel'>
+                <button type='button' className='cancel' onClick={this.props.onCancel}>
                     <img src={CancelIcon} />
                     <span>{'Cancel'}</span>
                 </button>
-                <button type='button' className='submit'>
+                <button type='submit' className='submit'>
                     <img src={SubmitIcon} />
                     <span>{'Submit'}</span>
                 </button>
