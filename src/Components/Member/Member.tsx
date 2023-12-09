@@ -5,9 +5,9 @@ import IMember from '../../models/member.interface'
 import INavbarButton from '../../models/navbar_button.interface'
 //components
 import Navbar from '../Navbar/Navbar'
-//subcomponents
 //icons
 import GoBackIcon from '../../icons/go-back.svg'
+import MemberForm from './MemberForm/MemberForm'
 
 interface MemberProps {
     inherited_data: IMember[],
@@ -70,6 +70,7 @@ export default class Member extends Component<MemberProps, MemberState> {
       <div className='member'>
         <Navbar buttons={this.state.navbar_btns}></Navbar>
         {this.generateTable()}
+        <MemberForm isOpen={true} form_name='insert-member' type='insert'></MemberForm>
       </div>
     )
   }
