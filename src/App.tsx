@@ -11,10 +11,6 @@ import SuccessScreen from './IndicatorComponents/SuccessScreen/SuccessScreen';
 import FailScreen from './IndicatorComponents/FailScreen/FailScreen';
 //components
 import ControlPanel from './Components/ControlPanel/ControlPanel';
-import Navbar from './Components/Navbar/Navbar';
-//for delete
-import INavbarButton from './models/navbar_button.interface';
-import InsertIcon from './icons/save-as-pdf.svg'
 
 interface AppProps {
 
@@ -37,6 +33,9 @@ export default class App extends Component<AppProps, AppState> {
       absence_records: [],
       currently_active: <Preloader></Preloader>
     }
+  }
+  helloWorld() {
+    alert('hello world')
   }
   async componentDidMount() {
     var preloader_text: HTMLSpanElement = document.querySelector("#preloader-message")!

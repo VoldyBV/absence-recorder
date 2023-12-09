@@ -12,7 +12,8 @@
     padding: var(--navbar-paddingTopBottom) var(--navbar-paddingLeftRight);
     background: hsl(187, 52%, 80%);
     display: flex;
-    column-gap: 1rem;
+    justify-content: space-between;
+    column-gap: 3rem;
 }
 .navbar button {
     display: flex;
@@ -37,82 +38,105 @@
 .navbar button.main-menu {
     color: hsl(218, 53%, 15%);
     background-color: hsl(209, 59%, 76%);
-    border: solid 2px hsl(218, 53%, 15%);
+    border: solid 1px hsl(218, 53%, 15%);
 }
 .navbar button.main-menu:hover {
     color: hsl(218, 53%, 30%);
     background-color: hsl(209, 59%, 86%);
-    border: solid 2px hsl(218, 53%, 30%);
+    border: solid 1px hsl(218, 53%, 30%);
 }
 
 /* insert btn */
 .navbar button.insert {
     color: hsl(96, 43%, 15%);
     background-color: hsl(96, 42%, 69%);
-    border: solid 2px hsl(96, 43%, 15%);
+    border: solid 1px hsl(96, 43%, 15%);
 }
 .navbar button.insert:hover {
     color: hsl(96, 43%, 30%);
     background-color: hsl(96, 42%, 80%);
-    border: solid 2px hsl(96, 43%, 30%)
+    border: solid 1px hsl(96, 43%, 30%)
 }
 
 /* update btn */
 .navbar button.update {
     color: hsl(45, 100%, 15%);
     background-color: hsl(45, 100%, 80%);
-    border: solid 2px hsl(45, 100%, 15%);
+    border: solid 1px hsl(45, 100%, 15%);
 }
 .navbar button.update:hover {
     color: hsl(45, 100%, 30%);
     background-color: hsl(45, 100%, 90%);
-    border: solid 2px hsl(45, 100%, 30%);
+    border: solid 1px hsl(45, 100%, 30%);
 }
 
 /* delete btn */
 .navbar button.delete {
     color: hsl(358, 100%, 15%);
     background-color: hsl(353, 100%, 80%);
-    border: solid 2px hsl(358, 100%, 15%);
+    border: solid 1px hsl(358, 100%, 15%);
 }
 .navbar button.delete:hover {
     color: hsl(358, 100%, 30%);
     background-color: hsl(353, 100%, 90%);
-    border: solid 2px hsl(358, 100%, 30%);
+    border: solid 1px hsl(358, 100%, 30%);
 }
 
 /* delete btn */
 .navbar button.delete {
     color: hsl(358, 100%, 15%);
     background-color: hsl(353, 100%, 80%);
-    border: solid 2px hsl(358, 100%, 15%);
+    border: solid 1px hsl(358, 100%, 15%);
 }
 .navbar button.delete:hover {
     color: hsl(358, 100%, 30%);
     background-color: hsl(353, 100%, 90%);
-    border: solid 2px hsl(358, 100%, 30%);
+    border: solid 1px hsl(358, 100%, 30%);
 }
 
 /* filter btn */
 .navbar button.filter {
     color: hsl(260, 33%, 15%);
     background-color: hsl(261, 33%, 81%);
-    border: solid 2px hsl(260, 33%, 15%);
+    border: solid 1px hsl(260, 33%, 15%);
 }
 .navbar button.filter:hover {
     color: hsl(260, 33%, 30%);
     background-color: hsl(261, 33%, 90%);
-    border: solid 2px hsl(260, 33%, 30%);
+    border: solid 1px hsl(260, 33%, 30%);
 }
 
 /* save-as-pdf btn */
 .navbar button.save-as-pdf {
     color: var(--red);
     background-color: var(--white);
-    border: solid 2px var(--blue);
+    border: solid 1px var(--blue);
 }
 .navbar button.save-as-pdf:hover {
     color: var(--light-red);
     background-color: #fff;
-    border: solid 2px var(--light-blue);
+    border: solid 1px var(--light-blue);
+}
+@media only screen and (max-width: 1200px){
+    /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width: 750px){
+	/*Big smartphones [426px -> 600px]*/
+    .navbar button span {
+        display: none;
+    }
+    .navbar {
+        padding-left: 0;
+        padding-right: 0;
+        column-gap: 0rem;
+        justify-content: space-evenly;
+    }
+}
+@media only screen and (max-width: 400px){
+    .navbar {
+        padding-left: 0;
+        padding-right: 0;
+        column-gap: 0rem;
+        justify-content: space-evenly;
+    }
 }
