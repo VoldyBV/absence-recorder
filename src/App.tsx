@@ -1,13 +1,20 @@
 import React, { Component } from 'react'
 import './App.css';
 import { app, credentials } from './utilis/mongo.client';
-import Preloader from './Components/Preloader/Preloader';
+//interfaces
 import IMember from './models/member.interface';
 import IAbsenceRecord from './models/absence_record.interface';
-import ControlPanel from './Components/ControlPanel/ControlPanel';
+//indicators
+import Preloader from './IndicatorComponents/Preloader/Preloader';
 import WaitingScreen from './IndicatorComponents/WaitingScreen/WaitingScreen';
 import SuccessScreen from './IndicatorComponents/SuccessScreen/SuccessScreen';
 import FailScreen from './IndicatorComponents/FailScreen/FailScreen';
+//components
+import ControlPanel from './Components/ControlPanel/ControlPanel';
+import Navbar from './Components/Navbar/Navbar';
+//for delete
+import INavbarButton from './models/navbar_button.interface';
+import InsertIcon from './icons/save-as-pdf.svg'
 
 interface AppProps {
 
@@ -51,8 +58,8 @@ export default class App extends Component<AppProps, AppState> {
         members,
         absence_records,
         currently_active: <ControlPanel switchComponent={this.switchComponent}></ControlPanel>
-      }, () => {console.log(this.state.members); console.log(this.state.absence_records)});
-    }, 500);
+      });
+    }, 1000);
   }
   // switchComponents is method that will be called from control panel component
   // It's purpose is to switch between components 

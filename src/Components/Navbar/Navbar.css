@@ -1,0 +1,118 @@
+:root {
+    --navbar-height: 7rem;
+    --navbar-paddingTopBottom: 1rem;
+    --navbar-paddingLeftRight: 2rem;
+    --navbar-button-padding: 0.75rem;
+    --navbar-button-fontSize: 1.6rem;
+}
+.navbar {
+    height: var(--navbar-height);
+    width: 100vw;
+    box-sizing: border-box;
+    padding: var(--navbar-paddingTopBottom) var(--navbar-paddingLeftRight);
+    background: hsl(187, 52%, 80%);
+    display: flex;
+    column-gap: 1rem;
+}
+.navbar button {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: var(--navbar-button-padding);
+    border-radius: var(--navbar-button-padding);
+    column-gap: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.navbar button img {
+    height: 100%;
+}
+.navbar button span {
+    font: inherit;
+    font-size: var(--navbar-button-fontSize);
+    font-weight: 600;
+}
+
+/* main-menu btn */
+.navbar button.main-menu {
+    color: hsl(218, 53%, 15%);
+    background-color: hsl(209, 59%, 76%);
+    border: solid 2px hsl(218, 53%, 15%);
+}
+.navbar button.main-menu:hover {
+    color: hsl(218, 53%, 30%);
+    background-color: hsl(209, 59%, 86%);
+    border: solid 2px hsl(218, 53%, 30%);
+}
+
+/* insert btn */
+.navbar button.insert {
+    color: hsl(96, 43%, 15%);
+    background-color: hsl(96, 42%, 69%);
+    border: solid 2px hsl(96, 43%, 15%);
+}
+.navbar button.insert:hover {
+    color: hsl(96, 43%, 30%);
+    background-color: hsl(96, 42%, 80%);
+    border: solid 2px hsl(96, 43%, 30%)
+}
+
+/* update btn */
+.navbar button.update {
+    color: hsl(45, 100%, 15%);
+    background-color: hsl(45, 100%, 80%);
+    border: solid 2px hsl(45, 100%, 15%);
+}
+.navbar button.update:hover {
+    color: hsl(45, 100%, 30%);
+    background-color: hsl(45, 100%, 90%);
+    border: solid 2px hsl(45, 100%, 30%);
+}
+
+/* delete btn */
+.navbar button.delete {
+    color: hsl(358, 100%, 15%);
+    background-color: hsl(353, 100%, 80%);
+    border: solid 2px hsl(358, 100%, 15%);
+}
+.navbar button.delete:hover {
+    color: hsl(358, 100%, 30%);
+    background-color: hsl(353, 100%, 90%);
+    border: solid 2px hsl(358, 100%, 30%);
+}
+
+/* delete btn */
+.navbar button.delete {
+    color: hsl(358, 100%, 15%);
+    background-color: hsl(353, 100%, 80%);
+    border: solid 2px hsl(358, 100%, 15%);
+}
+.navbar button.delete:hover {
+    color: hsl(358, 100%, 30%);
+    background-color: hsl(353, 100%, 90%);
+    border: solid 2px hsl(358, 100%, 30%);
+}
+
+/* filter btn */
+.navbar button.filter {
+    color: hsl(260, 33%, 15%);
+    background-color: hsl(261, 33%, 81%);
+    border: solid 2px hsl(260, 33%, 15%);
+}
+.navbar button.filter:hover {
+    color: hsl(260, 33%, 30%);
+    background-color: hsl(261, 33%, 90%);
+    border: solid 2px hsl(260, 33%, 30%);
+}
+
+/* save-as-pdf btn */
+.navbar button.save-as-pdf {
+    color: var(--red);
+    background-color: var(--white);
+    border: solid 2px var(--blue);
+}
+.navbar button.save-as-pdf:hover {
+    color: var(--light-red);
+    background-color: #fff;
+    border: solid 2px var(--light-blue);
+}

@@ -1,8 +1,9 @@
 :root {
   font-size: 10px;
   --red: #e9161d;
-  --light-red: #eb242a;
+  --light-red: rgb(235, 36, 48);
   --blue: #1565ae;
+  --light-blue: hsl(209, 78%, 50%);
   --white: #fefefe;
 }
 
