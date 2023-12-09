@@ -11,6 +11,7 @@ import SuccessScreen from './IndicatorComponents/SuccessScreen/SuccessScreen';
 import FailScreen from './IndicatorComponents/FailScreen/FailScreen';
 //components
 import ControlPanel from './Components/ControlPanel/ControlPanel';
+import Member from './Components/Member/Member';
 
 interface AppProps {
 
@@ -33,9 +34,6 @@ export default class App extends Component<AppProps, AppState> {
       absence_records: [],
       currently_active: <Preloader></Preloader>
     }
-  }
-  helloWorld() {
-    alert('hello world')
   }
   async componentDidMount() {
     var preloader_text: HTMLSpanElement = document.querySelector("#preloader-message")!
@@ -67,6 +65,8 @@ export default class App extends Component<AppProps, AppState> {
     var component: React.ReactNode;
 
     switch(component_name) {
+      case 'members':
+        component = <Member inherited_data={this.state.members} go_back={this.switchComponent}></Member>; break
       default: component = <ControlPanel switchComponent={this.switchComponent}></ControlPanel>
     }
 

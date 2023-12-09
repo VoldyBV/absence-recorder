@@ -1,12 +1,85 @@
 :root {
   font-size: 10px;
   --red: #e9161d;
-  --light-red: rgb(235, 36, 48);
+  --light-red: #eb2430;
+  --extra-light-red: #ee4450;
+  --ultra-light-red: hsl(356, 83%, 90%);
   --blue: #1565ae;
-  --light-blue: hsl(209, 78%, 50%);
+  --light-blue: #1c83e3;
   --white: #fefefe;
+  --black: #131313;
+  --level-0-fontSize: 3.6rem;
+  --level-1-fontSize: 2.8rem;
+  --level-2-fontSize: 2rem;
 }
 
 .App {
   text-align: center;
+}
+
+.table {
+  font: inherit;
+  border-spacing: 0;
+  border: solid 0.5px var(--red);
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
+}
+.table td, .table th {
+  padding: 1rem 0px;
+  border: solid 0.5px var(--red);
+}
+.table tr.level-0 th {
+  background-color: var(--red);
+  font-size: var(--level-0-fontSize);
+  color: var(--white);
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5rem;
+}
+.table tr.level-1 th {
+  background-color: var(--extra-light-red);
+  font-size: var(--level-1-fontSize);
+  color: var(--white);
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+}
+.table tr.level-2 td {
+  background-color: var(--white);
+  font-size: var(--level-2-fontSize);
+  color: var(--black);
+  text-align: center;
+  font-weight: 400;
+  text-transform: capitalize;
+  letter-spacing: 0.1rem;
+}
+.table tr.level-2:nth-child(2n) td {
+  background-color: var(--ultra-light-red);
+}
+@media only screen and (max-width: 1200px){
+    /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width: 600px){
+	/*Big smartphones [426px -> 600px]*/
+    :root {
+      --level-0-fontSize: 3.6rem;
+      --level-1-fontSize: 2.8rem;
+      --level-2-fontSize: 2rem;
+    }
+}
+@media only screen and (max-width: 450px){
+    :root {
+      --level-0-fontSize: 3rem;
+      --level-1-fontSize: 2.2rem;
+      --level-2-fontSize: 1.4rem;
+    }
+}
+@media only screen and (max-width: 375px){
+    :root {
+      --level-0-fontSize: 2rem;
+      --level-1-fontSize: 1.5rem;
+      --level-2-fontSize: 1rem;
+    }
 }
