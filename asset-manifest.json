@@ -1,12 +1,14 @@
 {
   "files": {
     "main.css": "/absence-recorder/static/css/main.fcaccd89.css",
-    "main.js": "/absence-recorder/static/js/main.e3cf72bf.js",
+    "main.js": "/absence-recorder/static/js/main.f5306df7.js",
     "static/js/787.042de63e.chunk.js": "/absence-recorder/static/js/787.042de63e.chunk.js",
     "static/media/hour_glass.svg": "/absence-recorder/static/media/hour_glass.f3aee401fef39b7fa8521e5c116b8000.svg",
     "static/media/approve.svg": "/absence-recorder/static/media/approve.98f1c80ab703efbe89815db460d68e15.svg",
+    "static/media/delete.svg": "/absence-recorder/static/media/delete.a78e4a1a01e3bc3392d8bdb94a7ae349.svg",
     "static/media/check_mark.svg": "/absence-recorder/static/media/check_mark.472f90163131d7676c4aaef0776b0c60.svg",
     "static/media/edit.svg": "/absence-recorder/static/media/edit.0614720bd3956432cf6be5796ba9d8c3.svg",
+    "static/media/filter.svg": "/absence-recorder/static/media/filter.d33222b718e14582906421093ad75b46.svg",
     "static/media/create.svg": "/absence-recorder/static/media/create.a77eaaa076a360af5704eeb4da8604fa.svg",
     "static/media/cancel.svg": "/absence-recorder/static/media/cancel.320888ea70ccbb17d0fca9dad950af41.svg",
     "index.html": "/absence-recorder/index.html",
@@ -14,11 +16,11 @@
     "static/media/animation.svg": "/absence-recorder/static/media/animation.c7aa54f3668c9860c39eec92602eb4f2.svg",
     "static/media/go-back.svg": "/absence-recorder/static/media/go-back.1df67c2f2407187cced85381f9863fc9.svg",
     "main.fcaccd89.css.map": "/absence-recorder/static/css/main.fcaccd89.css.map",
-    "main.e3cf72bf.js.map": "/absence-recorder/static/js/main.e3cf72bf.js.map",
+    "main.f5306df7.js.map": "/absence-recorder/static/js/main.f5306df7.js.map",
     "787.042de63e.chunk.js.map": "/absence-recorder/static/js/787.042de63e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fcaccd89.css",
-    "static/js/main.e3cf72bf.js"
+    "static/js/main.f5306df7.js"
   ]
 }
