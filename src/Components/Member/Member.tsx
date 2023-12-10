@@ -10,6 +10,7 @@ import MemberForm from './MemberForm/MemberForm'
 //icons
 import GoBackIcon from '../../icons/go-back.svg'
 import InsertIcon from '../../icons/create.svg'
+import UpdateIcon from '../../icons/edit.svg';
 
 interface MemberProps {
   user: Realm.User,
@@ -20,15 +21,21 @@ interface MemberProps {
 interface MemberState {
   data: IMember[],
   navbar_btns: INavbarButton[],
+  selected_record: IMember,
   isInsertFormOpen: boolean,
+  isUpdateFormOpen: boolean,
 }
 export default class Member extends Component<MemberProps, MemberState> {
   constructor(props: MemberProps) {
     super(props)
     
     this.generateTable =this.generateTable.bind(this);
+    this.generateMemberForm =this.generateMemberForm.bind(this);
+    this.selectRecord = this.selectRecord.bind(this);
     this.toggleInsertForm = this.toggleInsertForm.bind(this);
+    this.toggleUpdateForm = this.toggleUpdateForm.bind(this);
     this.insert = this.insert.bind(this);
+    this.update = this.update.bind(this);
 
     this.state = {
       data: props.inherited_data,
@@ -44,9 +51,17 @@ export default class Member extends Component<MemberProps, MemberState> {
           text: 'Add member',
           className: "insert",
           onClick: this.toggleInsertForm
+        },
+        {
+          icon: UpdateIcon,
+          text: 'Edit member',
+          className: "update",
+          onClick: this.toggleUpdateForm
         }
       ],
+      selected_record: props.inherited_data[0],
       isInsertFormOpen: false,
+      isUpdateFormOpen: false,
     }
   }
   // this method generates table populated with data from database
@@ -67,8 +82,14 @@ export default class Member extends Component<MemberProps, MemberState> {
         </thead>
         <tbody>
             {data.map((item) => {
+                let style = item._id === this.state.selected_record._id ? 'selected-record' : '';
                 return(
-                    <tr className='level-2' key={item._id} id={item._id}>
+                    <tr 
+                      className={`level-2 ${style}`}
+                      key={item._id} 
+                      id={item._id} 
+                      onClick={this.selectRecord}
+                    >
                         <td>{item.full_name}</td>
                         <td>{item.group}</td>
                         <td>{item.phone}</td>
@@ -80,11 +101,57 @@ export default class Member extends Component<MemberProps, MemberState> {
       </table>
     )
   }
+  // this method generates MemberForm 
+  generateMemberForm(): React.ReactNode | '' {
+    if(this.state.isInsertFormOpen) {
+      return <MemberForm 
+        isOpen={this.state.isInsertFormOpen} 
+        form_name='insert-member' 
+        type='insert'
+        onSubmit={this.insert}
+        onCancel={this.toggleInsertForm}
+      ></MemberForm>
+    }
+    if(this.state.isUpdateFormOpen) {
+      return <MemberForm 
+        isOpen={this.state.isUpdateFormOpen} 
+        form_name='update-member' 
+        type='update'
+        data={this.state.selected_record}
+        onSubmit={this.update}
+        onCancel={this.toggleUpdateForm}
+      ></MemberForm>
+    }
+    return '';
+  }
+  // this method selects a record
+  selectRecord(e: React.MouseEvent) {
+    var selected = document.querySelector(".selected-record")!;
+    var tr = e.currentTarget;
+    var _id = tr.id;
+
+    for (const member of this.state.data) {
+      if(member._id != _id) continue
+      tr.classList.toggle("selected-record");
+      selected.classList.toggle("selected-record");
+      this.setState({
+        selected_record: member
+      });
+      break;
+    }
+  }
   // this method hides/shows Insert Member Form
   toggleInsertForm() {
     var isInsertFormOpen = !this.state.isInsertFormOpen;
     this.setState({
       isInsertFormOpen
+    })
+  }
+  // this method hides/shows Update Member Form
+  toggleUpdateForm() {
+    var isUpdateFormOpen = !this.state.isUpdateFormOpen;
+    this.setState({
+      isUpdateFormOpen
     })
   }
   // this method inserts new record into database
@@ -112,7 +179,45 @@ export default class Member extends Component<MemberProps, MemberState> {
         success_screen.style.display = "none"
         this.props.saveData(new_data);
         this.setState({
-          data: new_data
+          data: new_data,
+          selected_record: new_data[0],
+        })
+      }, 1499);
+    }
+    catch(error: any) {
+      fail_screen.style.display = "flex";
+      fail_screen.querySelector("span")!.innerText = error;
+      console.log(error);
+    }
+  }
+  // this method inserts new record into database
+  async update(data: IMember): Promise<void> {
+    var waiting_screen = document.querySelector(".waiting-screen")! as HTMLDivElement;
+    var success_screen = document.querySelector(".success-screen")! as HTMLDivElement;
+    var fail_screen = document.querySelector(".fail-screen")! as HTMLDivElement;
+    try{
+
+      waiting_screen.style.display = "flex";
+      waiting_screen.querySelector("span")!.innerText = "Saving changes..."
+      console.log(data);
+      
+      var response: IDataBaseResponse = await this.props.user.functions.UpdateMember(data);
+
+      waiting_screen.style.display = "none"
+
+      if(!response.isSuccess) throw response.message;
+      
+      var new_data = response.data as IMember[];
+
+      success_screen.style.display = "flex";
+      success_screen.querySelector("span")!.innerText = response.message;
+      this.toggleUpdateForm();
+      setTimeout(() => {
+        success_screen.style.display = "none"
+        this.props.saveData(new_data);
+        this.setState({
+          data: new_data,
+          selected_record: new_data[0],
         })
       }, 1499);
     }
@@ -127,13 +232,7 @@ export default class Member extends Component<MemberProps, MemberState> {
       <div className='member'>
         <Navbar buttons={this.state.navbar_btns}></Navbar>
         {this.generateTable()}
-        <MemberForm 
-          isOpen={this.state.isInsertFormOpen} 
-          form_name='insert-member' 
-          type='insert'
-          onSubmit={this.insert}
-          onCancel={this.toggleInsertForm}
-        ></MemberForm>
+        {this.generateMemberForm()}
       </div>
     )
   }

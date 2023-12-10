@@ -44,6 +44,7 @@ export default class MemberForm extends Component<MemberFormProps, MemberFormSta
   form_onSubmit(e: React.FormEvent) {
     e.preventDefault();
     let data: IMember = {
+        _id: this.state._id?.toString(),
         full_name: this.state.full_name,
         group: this.state.group,
         phone: this.state.phone,
@@ -112,14 +113,18 @@ export default class MemberForm extends Component<MemberFormProps, MemberFormSta
                 className='text-box'
                 value={this.state.full_name}
                 onChange={this.full_name_onChange}
+                required={this.props.type !== 'filter'}
             ></input>
             <span className='text-box-label'>{'phone:'}</span>
             <input 
                 type='tel' 
                 name={`${this.props.form_name}-phone`}
                 className='text-box'
+                title='000/000-000 or 000/000-000-0'
+                pattern='[0-9]{3}/[0-9]{3}-[0-9]{3}|[0-9]{3}/[0-9]{3}-[0-9]{3}-[0-9]{1}'
                 value={this.state.phone}
                 onChange={this.phone_onChange}
+                required={this.props.type !== 'filter'}
             ></input>
             <span className='text-box-label'>{'grade:'}</span>
             <input 
@@ -130,6 +135,7 @@ export default class MemberForm extends Component<MemberFormProps, MemberFormSta
                 className='text-box'
                 value={this.state.grade}
                 onChange={this.grade_onChange}
+                required={this.props.type !== 'filter'}
             ></input>
             <span className='text-box-label'>{'Group:'}</span>
             <div className="radio-btns-container">
