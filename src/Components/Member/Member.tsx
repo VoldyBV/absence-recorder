@@ -24,8 +24,10 @@ interface MemberState {
   data: IMember[],
   navbar_btns: INavbarButton[],
   selected_record: IMember,
+  last_filter?: IMember, 
   isInsertFormOpen: boolean,
   isUpdateFormOpen: boolean,
+  isFilterFormOpen: boolean,
 }
 export default class Member extends Component<MemberProps, MemberState> {
   constructor(props: MemberProps) {
@@ -36,9 +38,11 @@ export default class Member extends Component<MemberProps, MemberState> {
     this.selectRecord = this.selectRecord.bind(this);
     this.toggleInsertForm = this.toggleInsertForm.bind(this);
     this.toggleUpdateForm = this.toggleUpdateForm.bind(this);
+    this.toggleFilterForm = this.toggleFilterForm.bind(this);
     this.insertMember = this.insertMember.bind(this);
     this.updateMember = this.updateMember.bind(this);
     this.deleteMember = this.deleteMember.bind(this);
+    this.filterMembers = this.filterMembers.bind(this);
 
     this.state = {
       data: props.inherited_data,
@@ -71,12 +75,13 @@ export default class Member extends Component<MemberProps, MemberState> {
           icon: FilterIcon,
           text: 'Filter members',
           className: "filter",
-          onClick: () => {alert('comming soon...')}
+          onClick: this.toggleFilterForm
         }
       ],
       selected_record: props.inherited_data[0],
       isInsertFormOpen: false,
       isUpdateFormOpen: false,
+      isFilterFormOpen: false
     }
   }
   // this method generates table populated with data from database
@@ -137,6 +142,16 @@ export default class Member extends Component<MemberProps, MemberState> {
         onCancel={this.toggleUpdateForm}
       ></MemberForm>
     }
+    if(this.state.isFilterFormOpen) {
+      return <MemberForm 
+        isOpen={this.state.isFilterFormOpen} 
+        form_name='filter-member'
+        data={this.state.last_filter}
+        type='filter'
+        onSubmit={this.filterMembers}
+        onCancel={this.toggleFilterForm}
+      ></MemberForm>
+    }
     return '';
   }
   // this method selects a record
@@ -167,6 +182,13 @@ export default class Member extends Component<MemberProps, MemberState> {
     var isUpdateFormOpen = !this.state.isUpdateFormOpen;
     this.setState({
       isUpdateFormOpen
+    })
+  }
+  // this method hides/shows Filter Members Form
+  toggleFilterForm() {
+    var isFilterFormOpen = !this.state.isFilterFormOpen;
+    this.setState({
+      isFilterFormOpen
     })
   }
   // this method inserts new record into database
@@ -205,7 +227,7 @@ export default class Member extends Component<MemberProps, MemberState> {
       console.log(error);
     }
   }
-  // this method inserts new record into database
+  // this method saves changes made on selected record
   async updateMember(data: IMember): Promise<void> {
     var waiting_screen = document.querySelector(".waiting-screen")! as HTMLDivElement;
     var success_screen = document.querySelector(".success-screen")! as HTMLDivElement;
@@ -273,6 +295,38 @@ export default class Member extends Component<MemberProps, MemberState> {
       setTimeout(() => {
         success_screen.style.display = "none"
       }, 1499);
+    }
+    catch(error: any) {
+      fail_screen.style.display = "flex";
+      fail_screen.querySelector("span")!.innerText = error;
+      console.log(error);
+    }
+  }
+  // this method saves changes made on selected record
+  async filterMembers(data: IMember): Promise<void> {
+    var waiting_screen = document.querySelector(".waiting-screen")! as HTMLDivElement;
+    var fail_screen = document.querySelector(".fail-screen")! as HTMLDivElement;
+    try{
+
+      waiting_screen.style.display = "flex";
+      waiting_screen.querySelector("span")!.innerText = "Aplying filter..."
+      
+      var response: IDataBaseResponse = await this.props.user.functions.FilterMembers(data);
+
+      waiting_screen.style.display = "none"
+
+      if(!response.isSuccess) throw response.message;
+      
+      var new_data = response.data as IMember[];
+      
+      this.props.saveData(new_data)
+      this.setState({
+        last_filter: data,
+        data: new_data,
+        selected_record: new_data[0],
+      })
+
+      this.toggleFilterForm();
     }
     catch(error: any) {
       fail_screen.style.display = "flex";

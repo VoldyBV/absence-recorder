@@ -11,7 +11,7 @@ interface MemberFormProps {
     form_name: string,
     type: 'insert' | 'update' | 'filter',
     onSubmit: (data: IMember) => Promise<void>,
-    onCancel: () => void
+    onCancel: () => void,
 }
 interface MemberFormState {
     _id?: string,
@@ -25,24 +25,26 @@ export default class MemberForm extends Component<MemberFormProps, MemberFormSta
   constructor(props: MemberFormProps) {
     super(props)
 
-    this.full_name_onChange =this.full_name_onChange.bind(this);
-    this.phone_onChange =this.phone_onChange.bind(this);
-    this.grade_onChange =this.grade_onChange.bind(this);
+    this.full_name_onChange = this.full_name_onChange.bind(this);
+    this.phone_onChange = this.phone_onChange.bind(this);
+    this.grade_onChange = this.grade_onChange.bind(this);
     this.group_onChange = this.group_onChange.bind(this);
     this.form_onSubmit = this.form_onSubmit.bind(this);
+    this.validateData = this.validateData.bind(this);
     
     let data_container: any = !!props.data ? props.data : {};
 
     this.state = {
         _id: data_container._id || undefined,
         full_name: data_container.full_name || '',
-        group: data_container.group || 'podmladak',
+        group: data_container.group || (props.type == 'filter' ? '' : 'podmladak'),
         phone: data_container.phone || '',
         grade: data_container.grade || '',
     }
   }
   form_onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if(!this.validateData()) return;
     let data: IMember = {
         _id: this.state._id?.toString(),
         full_name: this.state.full_name,
@@ -54,7 +56,7 @@ export default class MemberForm extends Component<MemberFormProps, MemberFormSta
     this.setState({
         _id: undefined,
         full_name: '',
-        group: '',
+        group: this.props.type == 'filter' ? '' : 'podmladak',
         phone: '',
         grade: '',
     })
@@ -102,6 +104,47 @@ export default class MemberForm extends Component<MemberFormProps, MemberFormSta
         group
     })
   }
+  validateData(): boolean {
+    if(this.props.type == 'filter') return true;
+
+    let full_name = this.state.full_name;
+    let phone = this.state.phone;
+    let grade = this.state.grade;
+
+    // validating full_name field
+    if(!!!full_name) {
+        alert("Filed 'Full Name' must not be empty!");
+        return false;
+    }
+
+    // validating phone
+    let pattern1 = /[0-9]{3}\/[0-9]{3}-[0-9]{3}/
+    let pattern2 = /[0-9]{3}\/[0-9]{3}-[0-9]{3}-[0-9]{1}/
+    let match1 = phone.match(pattern1)?.toString();
+    let match2 = phone.match(pattern2)?.toString();
+
+    if(!((phone == match1) || (phone == match2))) {
+        alert("Phone number must be written in one of following formats:\nFormat 1: 000/000-000\nFormat2: 000/000-000-0");
+        return false;
+    }
+
+    // validating grade
+    if(Number(grade) <= 0 && grade !== ''){
+        alert("Number in field 'Grade' must be grater than 0\nNote: you can leave it empty")
+        return false;
+    }
+    if(Number(grade) > 9){
+        alert("Number in field 'Grade' must be less than 10\nNote: you can leave it empty")
+        return false;
+    }
+    if(Number(grade) == 5){
+        alert("Number in field 'Grade' can not be equal to 5\nNote: you can leave it empty")
+        return false;
+    }
+
+
+    return true
+  }
   render() {
     return (
       <div className='member-form' style={{display: this.props.isOpen ? 'flex' : 'none'}}>
@@ -113,29 +156,22 @@ export default class MemberForm extends Component<MemberFormProps, MemberFormSta
                 className='text-box'
                 value={this.state.full_name}
                 onChange={this.full_name_onChange}
-                required={this.props.type !== 'filter'}
             ></input>
             <span className='text-box-label'>{'phone:'}</span>
             <input 
                 type='tel' 
                 name={`${this.props.form_name}-phone`}
                 className='text-box'
-                title='000/000-000 or 000/000-000-0'
-                pattern='[0-9]{3}/[0-9]{3}-[0-9]{3}|[0-9]{3}/[0-9]{3}-[0-9]{3}-[0-9]{1}'
                 value={this.state.phone}
                 onChange={this.phone_onChange}
-                required={this.props.type !== 'filter'}
             ></input>
             <span className='text-box-label'>{'grade:'}</span>
             <input 
-                type='number' 
-                min={1} 
-                max={9} 
+                type='number'
                 name={`${this.props.form_name}-grade`}
                 className='text-box'
                 value={this.state.grade}
                 onChange={this.grade_onChange}
-                required={this.props.type !== 'filter'}
             ></input>
             <span className='text-box-label'>{'Group:'}</span>
             <div className="radio-btns-container">
