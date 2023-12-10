@@ -11,6 +11,8 @@ import MemberForm from './MemberForm/MemberForm'
 import GoBackIcon from '../../icons/go-back.svg'
 import InsertIcon from '../../icons/create.svg'
 import UpdateIcon from '../../icons/edit.svg';
+import DeleteIcon from '../../icons/delete.svg';
+import FilterIcon from '../../icons/filter.svg';
 
 interface MemberProps {
   user: Realm.User,
@@ -34,8 +36,9 @@ export default class Member extends Component<MemberProps, MemberState> {
     this.selectRecord = this.selectRecord.bind(this);
     this.toggleInsertForm = this.toggleInsertForm.bind(this);
     this.toggleUpdateForm = this.toggleUpdateForm.bind(this);
-    this.insert = this.insert.bind(this);
-    this.update = this.update.bind(this);
+    this.insertMember = this.insertMember.bind(this);
+    this.updateMember = this.updateMember.bind(this);
+    this.deleteMember = this.deleteMember.bind(this);
 
     this.state = {
       data: props.inherited_data,
@@ -57,6 +60,18 @@ export default class Member extends Component<MemberProps, MemberState> {
           text: 'Edit member',
           className: "update",
           onClick: this.toggleUpdateForm
+        },
+        {
+          icon: DeleteIcon,
+          text: 'Delete member',
+          className: "delete",
+          onClick: this.deleteMember
+        },
+        {
+          icon: FilterIcon,
+          text: 'Filter members',
+          className: "filter",
+          onClick: () => {alert('comming soon...')}
         }
       ],
       selected_record: props.inherited_data[0],
@@ -108,7 +123,7 @@ export default class Member extends Component<MemberProps, MemberState> {
         isOpen={this.state.isInsertFormOpen} 
         form_name='insert-member' 
         type='insert'
-        onSubmit={this.insert}
+        onSubmit={this.insertMember}
         onCancel={this.toggleInsertForm}
       ></MemberForm>
     }
@@ -118,7 +133,7 @@ export default class Member extends Component<MemberProps, MemberState> {
         form_name='update-member' 
         type='update'
         data={this.state.selected_record}
-        onSubmit={this.update}
+        onSubmit={this.updateMember}
         onCancel={this.toggleUpdateForm}
       ></MemberForm>
     }
@@ -155,7 +170,7 @@ export default class Member extends Component<MemberProps, MemberState> {
     })
   }
   // this method inserts new record into database
-  async insert(data: IMember): Promise<void> {
+  async insertMember(data: IMember): Promise<void> {
     var waiting_screen = document.querySelector(".waiting-screen")! as HTMLDivElement;
     var success_screen = document.querySelector(".success-screen")! as HTMLDivElement;
     var fail_screen = document.querySelector(".fail-screen")! as HTMLDivElement;
@@ -174,14 +189,14 @@ export default class Member extends Component<MemberProps, MemberState> {
 
       success_screen.style.display = "flex";
       success_screen.querySelector("span")!.innerText = response.message;
+      this.props.saveData(new_data);
+      this.setState({
+        data: new_data,
+        selected_record: new_data[0],
+      })
 
       setTimeout(() => {
         success_screen.style.display = "none"
-        this.props.saveData(new_data);
-        this.setState({
-          data: new_data,
-          selected_record: new_data[0],
-        })
       }, 1499);
     }
     catch(error: any) {
@@ -191,7 +206,7 @@ export default class Member extends Component<MemberProps, MemberState> {
     }
   }
   // this method inserts new record into database
-  async update(data: IMember): Promise<void> {
+  async updateMember(data: IMember): Promise<void> {
     var waiting_screen = document.querySelector(".waiting-screen")! as HTMLDivElement;
     var success_screen = document.querySelector(".success-screen")! as HTMLDivElement;
     var fail_screen = document.querySelector(".fail-screen")! as HTMLDivElement;
@@ -211,14 +226,52 @@ export default class Member extends Component<MemberProps, MemberState> {
 
       success_screen.style.display = "flex";
       success_screen.querySelector("span")!.innerText = response.message;
-      this.toggleUpdateForm();
-      setTimeout(() => {
-        success_screen.style.display = "none"
         this.props.saveData(new_data);
         this.setState({
           data: new_data,
           selected_record: new_data[0],
         })
+      this.toggleUpdateForm();
+      setTimeout(() => {
+        success_screen.style.display = "none"
+      }, 1499);
+    }
+    catch(error: any) {
+      fail_screen.style.display = "flex";
+      fail_screen.querySelector("span")!.innerText = error;
+      console.log(error);
+    }
+  }
+  // this method deletes record from database
+  async deleteMember(): Promise<void> {
+    if(!window.confirm("Do you really want to delete this record?\nPlease note that this action is irreversible")) return;
+
+    var waiting_screen = document.querySelector(".waiting-screen")! as HTMLDivElement;
+    var success_screen = document.querySelector(".success-screen")! as HTMLDivElement;
+    var fail_screen = document.querySelector(".fail-screen")! as HTMLDivElement;
+    try{
+
+      waiting_screen.style.display = "flex";
+      waiting_screen.querySelector("span")!.innerText = "Deleting record..."
+
+      var response: IDataBaseResponse = await this.props.user.functions.DeleteMember(this.state.selected_record._id?.toString());
+
+      waiting_screen.style.display = "none"
+
+      if(!response.isSuccess) throw response.message;
+      
+      var new_data = response.data as IMember[];
+
+      success_screen.style.display = "flex";
+      success_screen.querySelector("span")!.innerText = response.message;
+        this.props.saveData(new_data);
+        this.setState({
+          data: new_data,
+          selected_record: new_data[0],
+        })
+      
+      setTimeout(() => {
+        success_screen.style.display = "none"
       }, 1499);
     }
     catch(error: any) {
