@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import './App.css';
+//utilis
+import * as SortingMethods from './utilis/sorting_functions'
 import { app, credentials } from './utilis/mongo.client';
 //interfaces
 import IMember, { isMember } from './models/member.interface';
@@ -12,6 +14,7 @@ import FailScreen from './IndicatorComponents/FailScreen/FailScreen';
 //components
 import ControlPanel from './Components/ControlPanel/ControlPanel';
 import Member from './Components/Member/Member';
+import AbsenceRecords from './Components/AbsenceRecords/AbsenceRecords';
 
 interface AppProps {
 
@@ -37,6 +40,9 @@ export default class App extends Component<AppProps, AppState> {
     }
   }
   async componentDidMount() {
+    // functions for sorting absence_records
+    // sorting data here because it would take too much time to sort it in cloud
+    // Function to compare dates
     var preloader_text: HTMLSpanElement = document.querySelector("#preloader-message")!
     
     preloader_text.innerText = "Connecting to database..."
@@ -47,6 +53,8 @@ export default class App extends Component<AppProps, AppState> {
 
     preloader_text.innerText = "Loading absence records..."
     var absence_records: IAbsenceRecord[] = await user.functions.GetAllAbsenceRecords();
+    // sorting absence_records
+    absence_records.sort(SortingMethods.SortAbsenceRecords)
 
     preloader_text.innerText = "Finishing up...";
 
@@ -71,7 +79,21 @@ export default class App extends Component<AppProps, AppState> {
 
     switch(component_name) {
       case 'members':
-        component = <Member user={this.state.user!} saveData={this.saveMembers} inherited_data={this.state.members} go_back={this.switchComponent}></Member>; break
+        component = 
+          <Member 
+            user={this.state.user!} 
+            saveData={this.saveMembers} 
+            inherited_data={this.state.members} 
+            go_back={this.switchComponent}
+          ></Member>; break;
+      case 'absence-records':
+        component = 
+          <AbsenceRecords
+            user={this.state.user!}
+            inherited_data={this.state.absence_records}
+            members={this.state.members}
+            go_back={this.switchComponent}
+          ></AbsenceRecords>; break
       default: component = <ControlPanel switchComponent={this.switchComponent}></ControlPanel>
     }
 
