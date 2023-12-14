@@ -6,14 +6,14 @@ const compareDates = (a: IAbsenceRecord, b: IAbsenceRecord): number => {
 };
   // Function to compare member names
 const compareNames = (a: IAbsenceRecord, b: IAbsenceRecord): number => {
-    if (a.member.full_name < b.member.full_name) return -1;
-    if (a.member.full_name > b.member.full_name) return 1;
+    if (a.member!.full_name < b.member!.full_name) return -1;
+    if (a.member!.full_name > b.member!.full_name) return 1;
     return 0;
 };
   // Function to compare member groups
 const compareGroups = (a: IAbsenceRecord, b: IAbsenceRecord): number => {
-    if (a.member.group < b.member.group) return -1;
-    if (a.member.group > b.member.group) return 1;
+    if (a.member!.group < b.member!.group) return -1;
+    if (a.member!.group > b.member!.group) return 1;
     return 0;
 };
 // for export

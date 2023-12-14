@@ -6,7 +6,7 @@ export default interface IAbsenceRecord {
     isExcused: string,
     notes: string,
     memberID: string,
-    member: IMember
+    member?: IMember
 }
 
 export const isAbsenceRecord = (obj: unknown): obj is IAbsenceRecord => {

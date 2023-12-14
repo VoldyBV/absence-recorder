@@ -1,0 +1,195 @@
+:root {
+    --arf-text-box-label-fontSize: 2.4rem;
+    --arf-text-box-fontSize: 2rem;
+    --arf-form-button-height: 5rem;
+    --arf-form-button-fontSize: 2.4rem;
+    --arf-form-display: grid;
+    --arf-form-columnGap: 2rem;
+    --arf-form-rowGap: 2rem;
+    --arf-form-padding: 3rem;
+}
+
+.absence-record-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #00000050;
+}
+.absence-record-form form {
+    background-color: var(--white);
+    box-sizing: border-box;
+    padding: var(--arf-form-padding);
+    border-radius: var(--arf-form-padding);
+    width: 85%;
+    border: solid 2px var(--black);
+    display: var(--arf-form-display);
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: repeat(5, min-content);
+    grid-column-gap: var(--arf-form-columnGap);
+    grid-row-gap: var(--arf-form-rowGap);
+    flex-direction: column;
+}
+.absence-record-form form .text-box-label {
+    font: inherit;
+    font-size: var(--arf-text-box-label-fontSize);
+    font-weight: 600;
+    letter-spacing: 0.3rem;
+    text-transform: capitalize;
+    text-align: left;
+}
+.absence-record-form form .text-box {
+    font: inherit;
+    font-size: var(--arf-text-box-fontSize);
+    border: none;
+    outline: solid 2px var(--black);
+    padding: 0.5rem;
+    border-radius: 1rem;
+    text-transform: capitalize;
+}
+.absence-record-form form .text-box:focus {
+    outline: solid 2px var(--blue);
+}
+.absence-record-form .radio-btns-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--arf-form-rowGap);
+    align-items: flex-start;
+}
+.absence-record-form .radio-btns-container label {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    text-transform: capitalize;
+    text-align: left;
+    font-size: var(--arf-text-box-fontSize);
+    cursor: pointer;
+}
+.absence-record-form .radio-btns-container input[type=radio] {
+    height: var(--arf-text-box-fontSize);
+    width: var(--arf-text-box-fontSize);
+    margin: 0;
+}
+.absence-record-form .radio-btns-container input[type=radio]:checked {
+    accent-color: var(--red);
+}
+.absence-record-form .radio-btns-container input[type=radio]:checked + span {
+    color: var(--red);
+    font-weight: 500;
+}
+.absence-record-form .form-buttons-container {
+    grid-column-end: span 2;
+    display: flex;
+    justify-content: space-between;
+}
+.absence-record-form .form-buttons-container button {
+    height: var(--arf-form-button-height);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    font: inherit;
+    font-size: var(--arf-form-button-fontSize);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: solid 1px black;
+    transition: all 0.3s;
+}
+.absence-record-form .form-buttons-container button img {
+    height: 100%;
+}
+.absence-record-form .form-buttons-container button.submit {
+    background-color: hsl(206, 67%, 78%);
+    color: hsl(205, 68%, 15%);
+    border-color: hsl(205, 68%, 15%);
+}
+.absence-record-form form select {
+    cursor: pointer;
+}
+.absence-record-form .form-buttons-container button.submit:hover {
+    background-color: hsl(206, 67%, 90%);
+    color: hsl(205, 68%, 30%);
+    border-color: hsl(205, 68%, 30%);
+}
+.absence-record-form .form-buttons-container button.cancel {
+    background-color: hsl(0, 0%, 86%);
+    color: hsl(0, 0%, 15%);
+    border-color: (0, 0%, 15%);
+}
+.absence-record-form .date-picker {
+    text-align: right;
+    display: flex;
+}
+.absence-record-form .date-picker button {
+    font: inherit;
+    font-size: var(--arf-text-box-fontSize);
+    border: none;
+    outline: solid 2px var(--black);
+    box-sizing: border-box;
+    padding: 0.7rem 1rem;
+    border-radius: 1rem;
+    text-transform: capitalize;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.absence-record-form .date-picker button span {
+    font: inherit;
+}
+.absence-record-form .date-picker button img {
+    height: calc(var(--arf-text-box-fontSize) + 1rem);
+}
+.absence-record-form .date-picker input[type=date] {
+    all: unset;
+    width: 0;
+    margin-left: auto;
+}
+.absence-record-form form textarea{
+    box-sizing: border-box;
+    min-height: 37px;
+    resize: vertical;
+    max-height: 200px;
+}
+@media only screen and (max-width: 1200px){
+    /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width: 550px){:root {
+    --arf-text-box-label-fontSize: 2rem;
+    --arf-text-box-fontSize: 1.6rem;
+    --arf-form-button-height: 4rem;
+    --arf-form-button-fontSize: 2rem;
+    --arf-form-display: flex;
+    --arf-form-rowGap: 1rem;
+    --arf-form-padding: 2rem;
+}
+}
+@media only screen and (max-width: 360px){
+    :root {
+        --arf-text-box-label-fontSize: 2rem;
+        --arf-text-box-fontSize: 1.6rem;
+        --arf-form-button-height: 4rem;
+        --arf-form-button-fontSize: 1.7rem;
+        --arf-form-display: flex;
+        --arf-form-rowGap: 1rem;
+        --arf-form-padding: 2rem;
+    }
+    .absence-record-form .form-buttons-container button {
+        column-gap: 0.5rem;
+        letter-spacing: 0px;
+    }
+}
